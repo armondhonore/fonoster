@@ -1,0 +1,29 @@
+application:
+  name: fonoster
+  pods:
+  - name: app
+    image: fonoster/fonoster:latest
+    path: /
+    servicePorts:
+    - 3000
+    vars:
+      NATS_URL: "nats://nats.pod:4222"
+      DATABASE_URL: "postgresql://fonoster:fonoster@postgres.pod:5432/fonoster"
+      JWT_SECURITY_SALT: "a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4"
+      APP_URL: "https://relaxed-weasel-fonoster.cloud.nexlayer.ai"
+    volumes:
+    - name: fonoster-data
+      mountPath: /fonoster/data
+      size: 5Gi
+  - name: postgres
+    image: postgres:16-alpine
+    servicePorts:
+    - 5432
+    vars:
+      POSTGRES_DB: fonoster
+      POSTGRES_USER: fonoster
+      POSTGRES_PASSWORD: fonoster
+    volumes:
+    - name: fonoster-db
+      mountPath: /var/lib/postgresql/data
+      size: 5Gi
