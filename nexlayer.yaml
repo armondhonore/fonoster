@@ -2,7 +2,7 @@ application:
   name: fonoster
   pods:
   - name: app
-    image: fonoster/fonoster:latest
+    image: mirror.gcr.io/fonoster/fonoster:latest
     path: /
     servicePorts:
     - 3000
@@ -16,7 +16,7 @@ application:
       mountPath: /fonoster/data
       size: 5Gi
   - name: postgres
-    image: postgres:16-alpine
+    image: mirror.gcr.io/library/postgres:16-alpine
     servicePorts:
     - 5432
     vars:
